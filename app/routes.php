@@ -14,5 +14,6 @@ return function (App $app) {
 
     $app->get('/invoices', '\Invoices\Controllers\InvoiceController:getInvoices');
     $app->get('/invoices/{id}', '\Invoices\Controllers\InvoiceController:getInvoice');
+    $app->post('/invoices', '\Invoices\Controllers\InvoiceController:newInvoice');
 
 };

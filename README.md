@@ -162,3 +162,54 @@ That's it! Now go build something cool.
 
   * **Code:** 500 SERVER ERROR <br />
     **Content:** `{"message": "Unexpected error", "data": []}`
+
+
+### Create new invoices
+
+* **URL**
+
+  /invoices
+
+* **Method:**
+
+  `POST`
+
+* **URL Params**
+
+  There are no URL params,
+
+* **Body Data**
+
+  ```json
+  {
+    "client": 1,
+    "total": 1500,
+    "details": [
+        {
+            "quantity": 1,
+            "rate": 1500,
+            "total": 1500
+        }
+    ]
+  }
+  ```
+
+* **Example:**
+
+  `/invoices`
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:** `{"message":"Successfully created new invoice.","data":{"invoice_id":"RX1307","id":"307"}}`
+
+* **Error Response:**
+
+  * **Code:** 400 BAD REQUEST <br />
+    **Content:** `{"message": "Invalid invoice data.", "data": []}`
+
+  * **Code:** 500 SERVER ERROR <br />
+    **Content:** `{"message": "Unable to create invoice, check the DB as it may have stored part of the new invoice.", "data": []}`
+
+* **Code:** 500 SERVER ERROR <br />
+  **Content:** `{"message": "Unexpected error.", "data": []}`
