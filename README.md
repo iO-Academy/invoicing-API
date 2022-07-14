@@ -1,25 +1,20 @@
-# Slim Framework 4 Skeleton Application
+# Invoice system RESTful API
 
-Use this skeleton application to quickly setup and start working on a new Slim Framework 4 application. This application uses the latest Slim 4 with Slim PSR-7 implementation and PHP-DI container implementation along with the PHP-View template renderer. It also uses the Monolog logger.
+<details>
+<summary>Run the API locally</summary>
 
-This skeleton application was built for Composer. This makes setting up a new Slim Framework application quick and easy.
-
-## Install the Application
-
-Create a new directory with your project name, e.g:
-
+<p></p>
+<p>
+Clone this repo into your docker `html` folder:
 
 ```bash
-mkdir academyProject
+git clone git@github.com:iO-Academy/invoicing-API.git
 ```
 
-Once inside the new directory, clone this repo:
+Once cloned, first install the database stored in `db/invoices.sql`.
+Create a database named `invoices`, then open the SQL file in your MySQL GUI and run all queries.
 
-```bash
-git clone git@github.com:Mayden-Academy/slim4-skeleton.git .
-```
-
-One cloned, you must install the slim components by running:
+After installing the database, install the vendor code by running the following from the root of the repo:
 
 ```bash
 composer install
@@ -28,11 +23,142 @@ composer install
 To run the application locally:
 ```bash
 composer start
+```
 
-```
-Run this command in the application directory to run the test suite
-```bash
-composer test
-```
+**Do not close this terminal tab, it is a running process.**
+
+The API will now be accessible at `http://localhost:8080/`.
 
 That's it! Now go build something cool.
+</p>
+</details>
+
+## API documentation
+
+### Return all invoices
+
+* **URL**
+
+  /invoices
+
+* **Method:**
+
+  `GET`
+
+* **URL Params**
+
+  **Required:**
+
+  There are no required URL params, this URL will return all invoices if no params are passed
+
+  **Optional:**
+
+  `status=[numeric]` - only return invoices with the provided status.
+  `sort=[invoice_id|invoice_total|created|due]` - sort the invoices by the supplied field, defaults to `invoice_id`.
+
+  **Example:**
+
+  `/invoices?status=2&sort=invoice_total`
+
+* **Success Response:**
+
+    * **Code:** 200 <br />
+      **Content:** <br />
+
+  ```json
+  {
+  "message": "Successfully found invoices.",
+  "data": [
+    {
+      "id": "150",
+      "invoice_id": "RX1150",
+      "name": "Holly-anne Crothers",
+      "due": "2021-12-30",
+      "invoice_total": "4485.93",
+      "status": "1",
+      "status_name": "Paid"
+    },
+    {
+      "id": "149",
+      "invoice_id": "RX1149",
+      "name": "Joeann Riccardini",
+      "due": "2022-03-01",
+      "invoice_total": "1427.09",
+      "status": "3",
+      "status_name": "Cancelled"
+    }
+  ]
+  }
+  ```
+
+* **Error Response:**
+
+  * **Code:** 400 BAD REQUEST <br />
+    **Content:** `{"message": "Invalid sort parameter", "data": []}`
+
+  * **Code:** 500 SERVER ERROR <br />
+    **Content:** `{"message": "Unexpected error", "data": []}`
+
+### Return specific invoice by ID
+
+* **URL**
+
+  /invoices/{id}
+
+* **Method:**
+
+  `GET`
+
+* **URL Params**
+
+  There are no URL params
+
+  **Example:**
+
+  `/invoices/150`
+
+  * **Success Response:**
+
+    * **Code:** 200 <br />
+      **Content:** <br />
+
+    ```json
+    {
+    "message": "Successfully found invoice.",
+    "data": {
+      "id": "150",
+      "invoice_id": "RX1150",
+      "name": "Holly-anne Crothers",
+      "street_address": "47 Eagle Crest Point",
+      "city": "Imatra",
+      "created": "2021-11-30",
+      "due": "2021-12-30",
+      "invoice_total": "4485.93",
+      "paid_to_date": "4485.93",
+      "status": "1",
+      "status_name": "Paid",
+      "details": [
+      {
+        "description": "Duis bibendum.",
+        "quantity": "15",
+        "rate": "542",
+        "total": "8130.00"
+      },
+      {
+        "description": "Donec posuere metus vitae ipsum.",
+        "quantity": "8",
+        "rate": "260",
+        "total": "2080.00"
+      }
+      ]
+    }
+    }
+    ```
+
+* **Error Response:**
+
+  * **Code:** 400 BAD REQUEST <br />
+    **Content:** `{"message":"No invoice found with id: 189","data":[]}`
+
+  * **Code:** 500 SERVER ERROR <br />
+    **Content:** `{"message": "Unexpected error", "data": []}`
