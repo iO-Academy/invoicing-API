@@ -213,3 +213,119 @@ That's it! Now go build something cool.
 
 * **Code:** 500 SERVER ERROR <br />
   **Content:** `{"message": "Unexpected error.", "data": []}`
+
+### Update invoice to mark as paid
+
+* **URL**
+
+  /invoices/{id}
+
+* **Method:**
+
+  `PUT`
+
+* **URL Params**
+
+  There are no URL params
+
+  **Example:**
+
+  `/invoices/150`
+
+  * **Success Response:**
+
+    * **Code:** 200 <br />
+      **Content:** `{"message":"Successfully marked invoice as paid.","data":[]}`
+
+* **Error Response:**
+
+  * **Code:** 400 BAD REQUEST <br />
+    **Content:** `{"message":"No invoice found with id: 189","data":[]}`
+
+  * **Code:** 400 BAD REQUEST <br />
+    **Content:** `{"message":"Invalid invoice ID","data":[]}`
+
+  * **Code:** 500 SERVER ERROR <br />
+    **Content:** `{"message": "Unexpected error", "data": []}`
+
+### Cancel invoice
+
+* **URL**
+
+  /invoices/{id}
+
+* **Method:**
+
+  `DELETE`
+
+* **URL Params**
+
+  There are no URL params
+
+  **Example:**
+
+  `/invoices/150`
+
+  * **Success Response:**
+
+    * **Code:** 200 <br />
+      **Content:** `{"message":"Successfully cancelled invoice.","data":[]}`
+
+* **Error Response:**
+
+  * **Code:** 400 BAD REQUEST <br />
+    **Content:** `{"message":"No invoice found with id: 189","data":[]}`
+
+  * **Code:** 400 BAD REQUEST <br />
+    **Content:** `{"message":"Invalid invoice ID","data":[]}`
+
+  * **Code:** 500 SERVER ERROR <br />
+    **Content:** `{"message": "Unexpected error", "data": []}`
+
+### Return all clients
+
+* **URL**
+
+  /clients
+
+* **Method:**
+
+  `GET`
+
+* **URL Params**
+
+  There are no URL params
+
+* **Example:**
+
+  `/clients`
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:** <br />
+
+  ```json
+  {
+  "message": "Successfully found clients.",
+  "data": [
+    {
+      "id": "1",
+      "name": "Portia Jirick",
+      "street_address": "69 Summerview Circle",
+      "city": "Dundburd"
+    },
+    {
+      "id": "2",
+      "name": "Brendan Moxley",
+      "street_address": "9 Corben Way",
+      "city": "Lughaye"
+    }
+  ]
+  }
+  ```
+
+* **Error Response:**
+
+  * **Code:** 500 SERVER ERROR <br />
+    **Content:** `{"message": "Unexpected error", "data": []}`

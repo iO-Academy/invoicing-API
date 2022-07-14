@@ -142,4 +142,20 @@ class InvoiceModel
             'total' => $detail['total']
         ]);
     }
+
+    public function markInvoiceAsPaid(int $id)
+    {
+        $query = $this->db->prepare('
+            UPDATE `invoices` SET `status` = "1", `paid_to_date` = `invoice_total` WHERE `id` = ?;
+        ');
+        return $query->execute([$id]);
+    }
+
+    public function cancelInvoice(int $id)
+    {
+        $query = $this->db->prepare('
+            UPDATE `invoices` SET `status` = "3" WHERE `id` = ?;
+        ');
+        return $query->execute([$id]);
+    }
 }

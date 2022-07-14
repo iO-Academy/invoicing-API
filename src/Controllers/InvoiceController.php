@@ -95,4 +95,50 @@ class InvoiceController extends Controller
             return $this->respondWithJson($response, $responseData, 500);
         }
     }
+
+    public function payInvoice(Request $request, Response $response, array $args)
+    {
+        $responseData = ['message' => 'Successfully marked invoice as paid.', 'data' => []];
+
+        try {
+            if (isset($args['id']) && is_numeric($args['id'])) {
+                $result = $this->invoiceModel->markInvoiceAsPaid($args['id']);
+                if ($result) {
+                    return $this->respondWithJson($response, $responseData);
+                } else {
+                    $responseData['message'] = 'No invoice found with id: ' . $args['id'];
+                    return $this->respondWithJson($response, $responseData, 400);
+                }
+            } else {
+                $responseData['message'] = 'Invalid invoice ID';
+                return $this->respondWithJson($response, $responseData, 400);
+            }
+        } catch (\Exception $e) {
+            $responseData['message'] = 'Unexpected error.';
+            return $this->respondWithJson($response, $responseData, 500);
+        }
+    }
+
+    public function cancelInvoice(Request $request, Response $response, array $args)
+    {
+        $responseData = ['message' => 'Successfully cancelled invoice.', 'data' => []];
+
+        try {
+            if (isset($args['id']) && is_numeric($args['id'])) {
+                $result = $this->invoiceModel->cancelInvoice($args['id']);
+                if ($result) {
+                    return $this->respondWithJson($response, $responseData);
+                } else {
+                    $responseData['message'] = 'No invoice found with id: ' . $args['id'];
+                    return $this->respondWithJson($response, $responseData, 400);
+                }
+            } else {
+                $responseData['message'] = 'Invalid invoice ID';
+                return $this->respondWithJson($response, $responseData, 400);
+            }
+        } catch (\Exception $e) {
+            $responseData['message'] = 'Unexpected error.';
+            return $this->respondWithJson($response, $responseData, 500);
+        }
+    }
 }
