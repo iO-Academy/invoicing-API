@@ -188,7 +188,8 @@ That's it! Now go build something cool.
         {
             "quantity": 1,
             "rate": 1500,
-            "total": 1500
+            "total": 1500,
+            "description": "Optional text field"
         }
     ]
   }
