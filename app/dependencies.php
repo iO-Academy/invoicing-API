@@ -34,7 +34,7 @@ return function (ContainerBuilder $containerBuilder) {
     };
 
     $container[PDO::class] = function(ContainerInterface $c) {
-        $db = new PDO('mysql:host=127.0.0.1;dbname=invoices', 'root', 'password');
+        $db = new PDO('mysql:host=DB;dbname=invoices', 'root', 'password');
         $db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
         return $db;
     };
