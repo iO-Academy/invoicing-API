@@ -1,5 +1,7 @@
 # Invoice system RESTful API
 
+**For trainers:** The API is deployed at https://invoicing-api.dev.io-academy.uk, use this when deploying front-end applications made by students.
+
 <details>
 <summary>Run the API locally</summary>
 
